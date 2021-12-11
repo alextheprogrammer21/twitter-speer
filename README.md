@@ -1,0 +1,1 @@
+Make sure you are using a node version that's greater than 12. Alternatively, you can add `const { TextEncoder, TextDecoder } = require("util");` to the top of `encoding.js` in `node_modules`.

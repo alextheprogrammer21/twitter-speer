@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+require("dotenv").config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -10,6 +11,26 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 const port = process.env.PORT || 8001;
+
+const mongoose = require('mongoose');
+const uri = process.env.MONGO_URI;
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: 
+  true });
+
+  const connection = mongoose.connection;
+
+  try{
+  connection.once('open', () => {
+      console.log("MongoDB database connection established successfully");
+  })
+  } catch(err) {
+  console.log(err);
+  }
+
+ function close_connection() {
+  connection.close();
+ }
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
